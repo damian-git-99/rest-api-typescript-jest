@@ -1,0 +1,9 @@
+{
+  "database": {
+    "database": "users_db",
+    "username": "postgres",
+    "password": "1234",
+    "dialect": "postgres",
+    "logging": false
+  }
+}
