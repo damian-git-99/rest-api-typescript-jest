@@ -1,16 +1,13 @@
-import { DataTypes, Model } from 'sequelize';
+import { DataTypes, Model, InferAttributes, InferCreationAttributes ,CreationOptional } from 'sequelize';
 import { sequelize } from '../config/database';
 
-export interface UserInterface {
-  id?: number;
-  username: string;
-  email: string;
-  password: string;
-  inactive?: boolean;
-  activationToken?: string;
+export class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
+  declare id?: CreationOptional<number>;
+  declare username: string;
+  declare email: string;
+  declare password: string;
+  declare inactive?: boolean;
 }
-
-export class User extends Model<UserInterface> {}
 
 User.init(
   {
@@ -32,9 +29,6 @@ User.init(
     inactive: {
       type: DataTypes.BOOLEAN,
       defaultValue: true
-    },
-    activationToken: {
-      type: DataTypes.STRING
     }
   },
   {
