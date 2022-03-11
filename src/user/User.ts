@@ -28,7 +28,7 @@ User.init(
     },
     inactive: {
       type: DataTypes.BOOLEAN,
-      defaultValue: true
+      defaultValue: false
     }
   },
   {
