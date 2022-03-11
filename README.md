@@ -12,6 +12,10 @@
 
 ## Usage
 ```
+* CREATE DATABASE users_db;
+
+* Change postgresql user and password from config/development.json file
+
 * clone project: git clone https://github.com/damian-git-99/rest-api-typescript-jest.git
 
 * Install Dependencies: npm install
@@ -30,3 +34,9 @@
 ## Use Case Diagram
 
 ![This is an image](https://i.ibb.co/Xz7QLxz/use-Case-Diagram.png)
+
+## Users API 
+```
+SignIn: POST /api/1.0/users { username, email, password }
+
+```
