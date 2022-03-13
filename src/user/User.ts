@@ -1,12 +1,14 @@
-import { DataTypes, Model, InferAttributes, InferCreationAttributes ,CreationOptional } from 'sequelize';
+import { DataTypes, Model, InferAttributes, InferCreationAttributes ,CreationOptional, HasManyGetAssociationsMixin } from 'sequelize';
 import { sequelize } from '../config/database';
+import { Token } from '../auth/Token';
 
-export class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
+export class User extends Model<InferAttributes<User, {omit: 'tokens'}>, InferCreationAttributes<User>> {
   declare id?: CreationOptional<number>;
   declare username: string;
   declare email: string;
   declare password: string;
   declare inactive?: boolean;
+  declare tokens? : HasManyGetAssociationsMixin<Token>;
 }
 
 User.init(
@@ -36,3 +38,7 @@ User.init(
     modelName: 'user'
   }
 );
+
+// associations
+User.hasMany(Token, { onDelete: 'cascade', foreignKey: 'userId', sourceKey: 'id'});
+Token.belongsTo(User, { targetKey: 'id' , foreignKey: 'userId'});
