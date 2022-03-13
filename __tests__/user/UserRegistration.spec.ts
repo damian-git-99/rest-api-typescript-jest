@@ -2,7 +2,6 @@ import request from 'supertest';
 import { app } from '../../src/app';
 import { sequelize } from '../../src/config/database';
 import { User } from '../../src/user/User';
-import bcrypt from 'bcrypt';
 
 beforeAll(async () => {
   try {
@@ -154,7 +153,15 @@ describe('User Registration', () => {
     ${'password'} | ${'UPPER44444'}    | ${'Password must have at least 1 uppercase, 1 lowercase letter and 1 number'}
   `(
     'returns $expectedMessage when $field is $value',
-    async ({ field, expectedMessage, value }: { field: string, expectedMessage : string, value: string } ) => {
+    async ({
+      field,
+      expectedMessage,
+      value
+    }: {
+      field: string;
+      expectedMessage: string;
+      value: string;
+    }) => {
       const user: { [key: string]: string | null } = {
         username: 'user1',
         email: 'user1@mail.com',
