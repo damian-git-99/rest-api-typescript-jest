@@ -31,12 +31,29 @@
  * npm test
 
 ```
+
+## Authentication
+```
+For authentication, a token is stored in the database and related to a user, 
+where a user can have one or many tokens.
+
+When login is called successfully, the token is sent by the body of the response.
+
+When the protected endpoints are called, 
+the request must contain the token within the authorization key in the HTTP headers, this way we can check if the token is valid
+```
+
+## ER Diagram
+
+![ER Diagram](https://i.ibb.co/J7WqJxJ/erdiagram.png)
+
 ## Use Case Diagram
 
-![This is an image](https://i.ibb.co/Xz7QLxz/use-Case-Diagram.png)
+![Use Case Diagram](https://i.ibb.co/Xz7QLxz/use-Case-Diagram.png)
 
 ## Users API 
 ```
-SignIn: POST /api/1.0/users { username, email, password }
+SignIn: POST /api/1.0/users | { username, email, password }
+LogIn: POST /api/1.0/auth   | { email, password }
 
 ```
