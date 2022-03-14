@@ -32,8 +32,10 @@ const validUser: ValidUser = {
   password: 'P4ssword'
 };
 
-const postUser = (user = validUser) => {
-  return request(app).post('/api/1.0/users').send(user);
+const postUser = (user = { ...validUser }) => {
+  return request(app)
+    .post('/api/1.0/users')
+    .send(user);
 };
 
 describe('User Registration', () => {

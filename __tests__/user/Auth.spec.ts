@@ -34,12 +34,13 @@ const addUser = async (user = { ...activeUser }) => {
   return await User.create(user);
 };
 
-const postAuthentication = async (credentials = {}) => {
-  const agent = request(app).post('/api/1.0/auth');
-  return await agent.send(credentials);
+const postAuthentication = (credentials = {}) => {
+  return request(app)
+    .post('/api/1.0/auth')
+    .send(credentials);
 };
 
-describe('Authentication', () => {
+describe('Log in', () => {
   it('returns 200 when credentials are correct', async () => {
     await addUser();
     const response = await postAuthentication({
@@ -59,6 +60,7 @@ describe('Authentication', () => {
     expect(response.body.username).toBe(user.username);
     expect(Object.keys(response.body)).toEqual(['id', 'username', 'token']);
   });
+
   it('returns 401 when user does not exist', async () => {
     const response = await postAuthentication({
       email: 'user1@mail.com',
@@ -66,6 +68,7 @@ describe('Authentication', () => {
     });
     expect(response.status).toBe(401);
   });
+
   it('returns 401 when password is wrong', async () => {
     await addUser();
     const response = await postAuthentication({
@@ -83,14 +86,17 @@ describe('Authentication', () => {
     });
     expect(response.status).toBe(403);
   });
+
   it('returns 400 when e-mail is not present', async () => {
     const response = await postAuthentication({ password: 'P4ssword' });
     expect(response.status).toBe(400);
   });
+
   it('returns 400 when password is not present', async () => {
     const response = await postAuthentication({ email: 'user1@mail.com' });
     expect(response.status).toBe(400);
   });
+
   it('returns 401 when password or email are not correct', async () => {
     const response = await postAuthentication({
       email: 'emalifalso@gmail.com',
@@ -98,6 +104,7 @@ describe('Authentication', () => {
     });
     expect(response.status).toBe(401);
   });
+
   it('returns token in response body when credentials are correct', async () => {
     await addUser();
     const response = await postAuthentication({
