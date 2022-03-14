@@ -1,11 +1,12 @@
 import { Request, Response } from 'express';
 import userService from '../user/UserService';
 import bcrypt from 'bcrypt';
-import asyncHandler  from 'express-async-handler';
+import asyncHandler from 'express-async-handler';
 import { AuthenticationException } from './exceptions/AuthenticationException';
 import { ForbiddenException } from './exceptions/ForbiddenException';
-import { createToken } from './TokenService';
+import tokenService from './TokenService';
 
+// @route POST /api/1.0/auth
 export const logIn = asyncHandler(async (req: Request, res: Response) => {
   const { email, password } = req.body;
 
@@ -17,12 +18,26 @@ export const logIn = asyncHandler(async (req: Request, res: Response) => {
 
   if (user.inactive) throw new ForbiddenException();
 
-  const token = await createToken(user);
+  const token = await tokenService.createToken(user);
 
-   res.json({
+  res.json({
     id: user.id,
     username: user.username,
     token
   });
+});
+
+// @route DELETE /api/1.0/logout
+export const logout = asyncHandler(async (req: Request, res: Response) => {
+  const authorization = req.headers.authorization;
   
+  if (!authorization) {
+    res.status(400).json({ message: 'invalid token' });
+    return;
+  }
+
+  const token = authorization.substring(7);
+  await tokenService.deleteToken(token);
+
+  res.json({ message: 'token removed successfully' });
 });

@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { check } from 'express-validator';
 import { validateFields } from '../middlewares/expressValidator';
-import { logIn } from './AuthController';
+import { logIn, logout } from './AuthController';
 export const authRouter = Router();
 
 authRouter.post(
@@ -9,3 +9,5 @@ authRouter.post(
   [check('email').isEmail(), check('password').notEmpty(), validateFields],
   logIn
 );
+
+authRouter.delete('/api/1.0/logout', logout);
