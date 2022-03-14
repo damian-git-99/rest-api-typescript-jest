@@ -1,9 +1,11 @@
-import { Request, Response } from 'express';
 import userService from './UserService';
+import asyncHandler from 'express-async-handler';
 
-// @route POST /api/1.0/users
-export const signIn = async (req: Request, res: Response) => {
-  await userService.signIn(req.body);
-  res.status(200).send({ message: 'User Created' });
-};
-
+// @route GET /api/1.0/users
+export const getAllUsers = asyncHandler(async (req, res) => {
+  const authenticatedUser = req.authenticatedUser;
+  const users = await userService.getUsers(authenticatedUser?.id);
+  res.json({
+    users
+  });
+});

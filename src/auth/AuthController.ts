@@ -9,10 +9,8 @@ import tokenService from './TokenService';
 // @route POST /api/1.0/auth
 export const logIn = asyncHandler(async (req: Request, res: Response) => {
   const { email, password } = req.body;
-
   const user = await userService.findByEmail(email);
   if (!user) throw new AuthenticationException();
-
   const match = await bcrypt.compare(password, user.password);
   if (!match) throw new AuthenticationException();
 
@@ -41,3 +39,9 @@ export const logout = asyncHandler(async (req: Request, res: Response) => {
 
   res.json({ message: 'token removed successfully' });
 });
+
+// @route POST /api/1.0/users
+export const signIn = async (req: Request, res: Response) => {
+  await userService.signIn(req.body);
+  res.status(200).send({ message: 'User Created' });
+};
