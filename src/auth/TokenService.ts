@@ -1,6 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
 import { Token } from './Token';
 import { User } from '../user/User';
+import { Op } from 'sequelize';
 
 class TokenService {
   async createToken(user: User) {
@@ -29,6 +30,21 @@ class TokenService {
     return {
       id: userId
     };
+  }
+
+  async scheduleCleanupOldTokens() {
+    const ONE_HOUR = 60 * 60 * 1000;
+    const ONE_WEEK_IN_MILLIS = 7 * 24 * 60 * 60 * 1000;
+    setInterval(async () => {
+      const oneWeekAgo = new Date(Date.now() - ONE_WEEK_IN_MILLIS);
+      await Token.destroy({
+        where: {
+          lastUsedAt: {
+            [Op.lt]: oneWeekAgo
+          }
+        }
+      });
+    }, ONE_HOUR);
   }
 }
 
