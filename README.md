@@ -56,5 +56,6 @@ the request must contain the token within the authorization key in the HTTP head
 SignIn: POST /api/1.0/users | { username, email, password }
 LogIn: POST /api/1.0/auth   | { email, password }
 Logout: DELETE /api/1.0/logout | token in headers
-Get all users: GET /api/1.0/users
+Find all users: GET /api/1.0/users
+FindUser: GET /api/1.0/users/:id
 ```

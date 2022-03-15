@@ -9,3 +9,9 @@ export const getAllUsers = asyncHandler(async (req, res) => {
     users
   });
 });
+
+// @route GET /api/1.0/users/:id
+export const getUser = asyncHandler(async (req, res) => {
+  const user = await userService.getUser(parseInt(req.params.id));
+  res.send(user);
+});

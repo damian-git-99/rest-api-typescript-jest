@@ -1,6 +1,7 @@
 import { User } from './User';
 import bcrypt from 'bcrypt';
 import { Op } from 'sequelize';
+import { UserNotFoundException } from './exceptions/UserNotFoundException';
 
 class UserService {
   async signIn(user: User) {
@@ -22,9 +23,23 @@ class UserService {
           [Op.not]: authenticatedUser ? authenticatedUser : 0 // select * where attribute is NOT x, Op = operator
         }
       },
-      attributes: ['id', 'username', 'email'],
+      attributes: ['id', 'username', 'email']
     });
     return users;
+  }
+
+  async getUser(id: number) {
+    const user = await User.findOne({
+      where: {
+        id: id,
+        inactive: false
+      },
+      attributes: ['id', 'username', 'email']
+    });
+    if (!user) {
+      throw new UserNotFoundException();
+    }
+    return user;
   }
 }
 
