@@ -14,14 +14,12 @@ export const tokenAuthentication = async (
       req.authenticatedUser = user;
       next();
     } catch (err) {
-      console.log(err);
-      // eslint-disable-next-line no-empty
-      return res.status(401).json({
+      return res.status(403).json({
         message: 'the token is invalid or does not come in the http header'
       });
     }
   } else {
-    return res.status(401).json({
+    return res.status(403).json({
       message: 'the token is invalid or does not come in the http headers'
     });
   }
