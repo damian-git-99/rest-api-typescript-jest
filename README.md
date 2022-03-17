@@ -58,4 +58,5 @@ LogIn: POST /api/1.0/auth   | { email, password }
 Logout: DELETE /api/1.0/logout | token in headers
 Find all users: GET /api/1.0/users
 FindUser: GET /api/1.0/users/:id
+DeleteUser DELETE /api/1.0/users/:id
 ```

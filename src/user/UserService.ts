@@ -41,6 +41,10 @@ class UserService {
     }
     return user;
   }
+
+  async deleteUserById(id: number) {
+    await User.destroy({ where: { id } });
+  }
 }
 
 const userService = new UserService();
