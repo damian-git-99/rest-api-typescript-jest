@@ -3,6 +3,6 @@ export class ForbiddenException {
   message: string;
   constructor() {
     this.status = 403;
-    this.message = 'inactive authentication failure';
+    this.message = 'Forbidden user';
   }
 }
