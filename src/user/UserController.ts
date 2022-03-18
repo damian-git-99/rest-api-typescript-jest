@@ -29,3 +29,14 @@ export const deleteUser = asyncHandler(async (req, res) => {
     message: 'user deleted successfully'
   });
 });
+
+// @route PUT /api/1.0/users/:id
+export const updateUser = asyncHandler(async (req, res) => {
+  const authenticatedUser = req.authenticatedUser;
+
+  if (!authenticatedUser || authenticatedUser.id.toString() != req.params.id) {
+    throw new ForbiddenException();
+  }
+  const user = await userService.updateUser(parseInt(req.params.id), req.body);
+  res.send(user);
+});
