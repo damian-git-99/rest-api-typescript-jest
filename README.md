@@ -25,6 +25,7 @@
 * Run in production
   1 npm run build
   2 npm start
+  3 By default the application runs on port 3000 (to change it modify the port in the index.ts file)
 
 * Run in development
   * npm run dev
