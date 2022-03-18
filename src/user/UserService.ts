@@ -2,6 +2,7 @@ import { User } from './User';
 import bcrypt from 'bcrypt';
 import { Op } from 'sequelize';
 import { UserNotFoundException } from './exceptions/UserNotFoundException';
+import { EmailInUseException } from './exceptions/EmailInUseException';
 
 class UserService {
   async signIn(user: User) {
@@ -19,8 +20,7 @@ class UserService {
       where: {
         inactive: false,
         id: {
-          // https://sequelize.org/master/manual/model-querying-basics.html#operators
-          [Op.not]: authenticatedUser ? authenticatedUser : 0 // select * where attribute is NOT x, Op = operator
+          [Op.not]: authenticatedUser ? authenticatedUser : 0
         }
       },
       attributes: ['id', 'username', 'email']
@@ -44,6 +44,25 @@ class UserService {
 
   async deleteUserById(id: number) {
     await User.destroy({ where: { id } });
+  }
+
+  async updateUser(id: number, updatedBody: User) {
+    const user = await User.findOne({ where: { id } });
+    if (!user) throw new UserNotFoundException();
+    
+    user.username = updatedBody.username ? updatedBody.username : user.username;
+    user.password = updatedBody.password ? bcrypt.hashSync(updatedBody.password, 10) : user.password;
+    if (updatedBody.email) {
+      const existsInDB = await this.findByEmail(updatedBody.email);
+      if (existsInDB && updatedBody.email !== user.email ) throw new EmailInUseException();
+      user.email = updatedBody.email;
+    }
+    await user.save();
+    return {
+      id: id,
+      username: user.username,
+      email: user.email,
+    };
   }
 }
 
