@@ -12,6 +12,8 @@
 
 ## Usage
 ```
+* Install postgresql
+
 * CREATE DATABASE users_db;
 
 * Change postgresql user and password from config/development.json file
@@ -49,9 +51,10 @@ the request must contain the token within the authorization key in the HTTP head
 
 ## Use Case Diagram
 
-![Use Case Diagram](https://i.ibb.co/Xz7QLxz/use-Case-Diagram.png)
+![Use Case Diagram](https://i.ibb.co/Pc0nPwB/final-Use-Case-Diagram.png)
 
 ## Users API 
+#### Use postman to test the api (import the file API-REST-JEST.postman_collection.json)
 ```
 SignIn: POST /api/1.0/users | { username, email, password }
 LogIn: POST /api/1.0/auth   | { email, password }
@@ -61,3 +64,5 @@ FindUser: GET /api/1.0/users/:id
 DeleteUser DELETE /api/1.0/users/:id
 UpdateUser PUT /api/1.0/users/:id  | { username, email, password }
 ```
+
+[Link text Here](https://link-url-here.org)
