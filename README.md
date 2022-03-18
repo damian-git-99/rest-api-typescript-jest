@@ -65,5 +65,3 @@ FindUser: GET /api/1.0/users/:id
 DeleteUser DELETE /api/1.0/users/:id
 UpdateUser PUT /api/1.0/users/:id  | { username, email, password }
 ```
-
-[Link text Here](https://link-url-here.org)
