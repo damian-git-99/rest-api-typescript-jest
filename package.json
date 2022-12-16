@@ -4,7 +4,8 @@
   "description": "Example of a rest api using node js with typescript and jest for testing",
   "main": "index.js",
   "scripts": {
-    "test": "cross-env NODE_ENV=test jest --watch",
+    "test": "cross-env NODE_ENV=test jest",
+    "test:watch": "cross-env NODE_ENV=test jest --watch",
     "dev": "cross-env NODE_ENV=development nodemon index.ts",
     "clean": "npx rimraf build",
     "build": "npm run clean && tsc",
