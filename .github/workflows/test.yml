@@ -14,3 +14,9 @@ jobs:
         run: npm ci # npm ci is faster than npm install
       - name: Run tests
         run: npm test
+      - name: Install Railway CLI
+        run: npm install -g @railway/cli
+      - name: Deploy to Railway
+        run: railway up
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
