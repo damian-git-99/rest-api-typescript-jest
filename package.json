@@ -6,7 +6,7 @@
   "scripts": {
     "test": "cross-env NODE_ENV=test jest",
     "test:watch": "cross-env NODE_ENV=test jest --watch",
-    "dev": "cross-env NODE_ENV=development nodemon index.ts",
+    "dev": "cross-env NODE_ENV=development nodemon --exec npx ts-node index.ts",
     "clean": "npx rimraf build",
     "build": "npm run clean && tsc",
     "start": "cross-env NODE_ENV=development node build/index.js"
