@@ -6,11 +6,60 @@ jobs:
     steps:
       - name: Get code
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 16
+
       - name: Install dependencies
         run: npm ci # npm ci is faster than npm install
       - name: Run tests
         run: npm test
+
+      - name: Git Semantic Version
+        uses: PaulHatch/semantic-version@v4.0.3
+        with:
+          tag_prefix: "v"
+          major_pattern: "BREAKING-CHANGE!:"
+          minor_pattern: "feat:"
+          patch_pattern: "fix:"
+          format: "${major}.${minor}.${patch}"
+          bump_each_commit: true
+        id: version
+
+      - name: Create tag
+        env:
+          NEW_VERSION: v${{ steps.version.outputs.version }}
+        run: |
+          git config --global user.email "damiangalvan66@gmail.com"
+          git config --global user.name "damian"
+          git tag $NEW_VERSION
+          git push origin $NEW_VERSION
+          echo  ${{steps.build_changelog.outputs.changelog}}
+          echo  ${{steps.build_changelog.outputs.changes}}
+
+      - name: Get previous tag
+        id: previousTag
+        run: |
+          name=$(git --no-pager tag --sort=creatordate --merged ${{ github.ref_name }} | tail -2 | head -1)
+          echo "previousTag: $name"
+          echo "previousTag=$name" >> $GITHUB_ENV
+
+      - name: Update CHANGELOG
+        id: changelog
+        uses: requarks/changelog-action@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fromTag: v${{ steps.version.outputs.version }}
+          toTag: ${{ env.previousTag }}
+          writeToFile: false
+          excludeTypes: ""
+
+      - name: Release
+        uses: ncipollo/release-action@v1
+        with:
+          tag: v${{ steps.version.outputs.version }}
+          body: ${{ steps.changelog.outputs.changes}}
