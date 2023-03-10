@@ -27,7 +27,7 @@ jobs:
           minor_pattern: "feat:"
           patch_pattern: "fix:"
           format: "${major}.${minor}.${patch}"
-          bump_each_commit: true
+          bump_each_commit: false
         id: version
 
       - name: Create tag
