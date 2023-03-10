@@ -1,0 +1,7 @@
+{
+  "database": {
+    "uri": "postgres://damian:password@postgres:5432/users_db",
+    "dialect": "postgres",
+    "logging": false
+  }
+}
