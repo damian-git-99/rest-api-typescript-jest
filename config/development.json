@@ -1,6 +1,6 @@
 {
   "database": {
-    "URI": "postgres://postgres:1234@database:5432/users_db",
+    "URI": "postgres://postgres:1234@localhost:5432/users_db",
     "dialect": "postgres",
     "logging": false
   }
