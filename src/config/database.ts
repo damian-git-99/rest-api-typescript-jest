@@ -2,17 +2,13 @@ import { Sequelize } from 'sequelize';
 import config from 'config';
 
 const dbConfig: {
-  database: string;
-  username: string;
-  password: string;
   dialect: any;
-  storage: string;
   logging: any;
+  uri: string;
 } = config.get('database');
 
-export const sequelize = new Sequelize(dbConfig.database, dbConfig.username, dbConfig.password, {
+export const sequelize = new Sequelize(dbConfig.uri, {
   dialect: dbConfig.dialect,
-  storage: dbConfig.storage,
   logging: dbConfig.logging
 });
 

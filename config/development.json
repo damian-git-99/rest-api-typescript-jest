@@ -1,8 +1,6 @@
 {
   "database": {
-    "database": "users_db",
-    "username": "postgres",
-    "password": "1234",
+    "URI": "postgres://postgres:1234@database:5432/users_db",
     "dialect": "postgres",
     "logging": false
   }
