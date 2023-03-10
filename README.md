@@ -17,7 +17,11 @@ Example of a rest api using node js with typescript and jest for testing
 [![](https://img.shields.io/badge/Jest-C21325?style=for-the-badge&logo=jest&logoColor=white)](https://jestjs.io/)
 [![](	https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![](https://img.shields.io/badge/ts--node-3178C6?style=for-the-badge&logo=ts-node&logoColor=white)](https://typestrong.org/ts-node/)
-## DB Installation
+
+## Run with docker
+- Install Docker
+- run `docker compose up`
+## Run Manually
 
 Install postgresql
 
@@ -26,8 +30,6 @@ Install postgresql
   Change postgresql user and password from config/development.json file
 ```
     
-## Run Locally
-
 Clone the project
 
 ```bash
