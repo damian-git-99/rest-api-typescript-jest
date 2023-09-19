@@ -1,7 +1,7 @@
 services:
   postgres:
     container_name: postgres
-    image: postgres
+    image: postgres:15.4-alpine3.17
     environment:
       POSTGRES_DB: users_db
       POSTGRES_USER: damian
@@ -10,9 +10,9 @@ services:
     volumes:
       - postgres:/data/postgres
     ports:
-      - "5432:5432"
+      - '5432:5432'
     restart: unless-stopped
-  
+
   pgadmin:
     container_name: pgadmin
     image: dpage/pgadmin4
@@ -23,15 +23,14 @@ services:
     volumes:
       - pgadmin:/var/lib/pgadmin
     ports:
-      - "5050:80"
+      - '5050:80'
     restart: unless-stopped
 
-  
   rest-api:
     container_name: rest-api-container
     build: .
     ports:
-      - "3000:3000"
+      - '3000:3000'
     restart: unless-stopped
 
 volumes:
