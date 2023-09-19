@@ -1,0 +1,40 @@
+components:
+  schemas:
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    UserRequest:
+      type: object
+      properties:
+        username:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+    UserResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        username:
+          type: string
+        email:
+          type: string
+    LoginRequest:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+    LoginResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        username:
+          type: string
+        token:
+          type: string

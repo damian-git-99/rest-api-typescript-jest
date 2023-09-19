@@ -7,7 +7,11 @@ const options: swaggerJSDoc.Options = {
     openapi: '3.0.0',
     info: { title: 'Crossfit WOD API', version: '1.0.0' }
   },
-  apis: ['./src/docs/users.yaml', './src/docs/auth.yaml']
+  apis: [
+    './src/swagger-docs/schemas.yaml',
+    './src/user/UserRouter.ts',
+    './src/auth/AuthRouter.ts'
+  ]
 }
 
 const swaggerSpec = swaggerJSDoc(options)

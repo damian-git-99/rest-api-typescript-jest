@@ -17,9 +17,18 @@ export const userRouter = Router()
  *     summary: Get the list of all users
  *     tags:
  *       - users
+ *     security:
+ *       - jwtAuth: []
  *     responses:
  *       200:
- *         description: List of users retrieved successfully
+ *         description: User retrieved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               $ref: '#/components/schemas/UserResponse'
+ *       403:
+ *         description: Forbidden - JWT token missing or invalid
  */
 userRouter.get('/', getAllUsers)
 
@@ -45,7 +54,7 @@ userRouter.get('/', getAllUsers)
  *         content:
  *           application/json:
  *             schema:
- *               $ref: './schemas.yaml/components/schemas/User'
+ *               $ref: '#/components/schemas/UserResponse'
  *       403:
  *         description: Forbidden - JWT token missing or invalid
  *       404:
@@ -67,9 +76,13 @@ userRouter.get('/:id', getUser)
  *           type: integer
  *         required: true
  *         description: ID of the user to delete
+ *     security:
+ *       - jwtAuth: []
  *     responses:
  *       204:
  *         description: User deleted successfully
+ *       403:
+ *         description: Forbidden - JWT token missing or invalid
  *       404:
  *         description: User not found
  */
@@ -89,22 +102,26 @@ userRouter.delete('/:id', deleteUser)
  *           type: integer
  *         required: true
  *         description: ID of the user to update
+ *     security:
+ *       - jwtAuth: []
  *     requestBody:
  *       description: Updated user data
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: 'schemas.yaml/components/schemas/User'
+ *             $ref: '#/components/schemas/UserRequest'
  *     responses:
  *       200:
  *         description: User updated successfully
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '../../swagger-docs/schemas.yaml#/components/schemas/User'
+ *               $ref: '#/components/schemas/UserResponse'
  *       400:
  *         description: Bad request - Invalid data provided
+ *       403:
+ *         description: Forbidden - JWT token missing or invalid
  *       404:
  *         description: User not found
  */
